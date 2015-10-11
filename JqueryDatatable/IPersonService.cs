@@ -15,7 +15,7 @@ namespace JqueryDatatable
     {
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
-        List<Person> GetPersons();
+        ReturnModel GetPersons();
       
     }
 }

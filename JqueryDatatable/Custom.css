@@ -1,0 +1,22 @@
+﻿body {
+
+}
+
+#table_person, #table_person_wrapper{
+ width:600px;
+}
+
+#table_person_wrapper {
+
+}
+
+#table_selected,#table_selected_wrapper{
+   width:600px;
+}
+
+
+#table_selected_wrapper {
+   top:10px;
+   left:650px;
+   position:absolute;
+}

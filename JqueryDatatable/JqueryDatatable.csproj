@@ -61,6 +61,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Custom.css" />
     <Content Include="Default.aspx" />
     <Content Include="extensions\AutoFill\css\autoFill.bootstrap.css" />
     <Content Include="extensions\AutoFill\css\autoFill.bootstrap.min.css" />
@@ -400,6 +401,7 @@
     <Content Include="media\css\dataTables.foundation.min.css" />
     <Content Include="media\css\dataTables.jqueryui.css" />
     <Content Include="media\css\dataTables.jqueryui.min.css" />
+    <Content Include="media\css\jquery-ui.css" />
     <Content Include="media\css\jquery.dataTables.css" />
     <Content Include="media\css\jquery.dataTables.min.css" />
     <Content Include="media\css\jquery.dataTables_themeroller.css" />
@@ -419,7 +421,9 @@
     <Content Include="media\js\jquery.dataTables.min.js" />
     <Content Include="media\js\jquery.js" />
     <Content Include="PersonService.svc" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Default.aspx.cs">
@@ -438,6 +442,7 @@
       <DependentUpon>MasterPage.Master</DependentUpon>
     </Compile>
     <Compile Include="Models\Person.cs" />
+    <Compile Include="Models\ReturnModel.cs" />
     <Compile Include="PersonService.svc.cs">
       <DependentUpon>PersonService.svc</DependentUpon>
     </Compile>
@@ -461,6 +466,7 @@
     <Content Include="media\images\Sorting icons.psd" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
