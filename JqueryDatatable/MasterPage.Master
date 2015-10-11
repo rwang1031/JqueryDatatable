@@ -14,6 +14,7 @@
     <script type="text/javascript" src="media/js/jquery.js"></script>
     <script type="text/javascript" src="media/js/jquery.dataTables.js"></script>
     <script type="text/javascript" src="media/js/dataTables.jqueryui.js"></script>
+    <script type="text/javascript" src="media/js/addRows.js"></script>
 <%--    <script type="text/javascript" src="extensions/Buttons/js/dataTables.buttons.min.js"></script>
     <script type="text/javascript" src="extensions/Buttons/js/buttons.jqueryui.js"></script>--%>
 

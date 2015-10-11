@@ -411,6 +411,7 @@
     <Content Include="media\images\sort_both.png" />
     <Content Include="media\images\sort_desc.png" />
     <Content Include="media\images\sort_desc_disabled.png" />
+    <Content Include="media\js\addRows.js" />
     <Content Include="media\js\dataTables.bootstrap.js" />
     <Content Include="media\js\dataTables.bootstrap.min.js" />
     <Content Include="media\js\dataTables.foundation.js" />

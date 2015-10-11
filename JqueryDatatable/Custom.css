@@ -10,6 +10,10 @@
 
 }
 
+#table_person td {
+height:30px;
+}
+
 #table_selected,#table_selected_wrapper{
    width:600px;
 }
@@ -20,3 +24,15 @@
    left:650px;
    position:absolute;
 }
+
+#table_selected td {
+    height:30px;
+}
+
+#table1_buttons_div {
+ margin-top:10px;
+ margin-left:10px;
+}
+
+
+
