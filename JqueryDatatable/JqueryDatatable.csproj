@@ -418,8 +418,10 @@
     <Content Include="media\js\dataTables.foundation.min.js" />
     <Content Include="media\js\dataTables.jqueryui.js" />
     <Content Include="media\js\dataTables.jqueryui.min.js" />
+    <Content Include="media\js\jquery-1.10.2.js" />
     <Content Include="media\js\jquery.dataTables.js" />
     <Content Include="media\js\jquery.dataTables.min.js" />
+    <Content Include="media\js\jquery.dataTablesLegacy.js" />
     <Content Include="media\js\jquery.js" />
     <Content Include="PersonService.svc" />
     <Content Include="Web.config">
@@ -442,8 +444,10 @@
     <Compile Include="MasterPage.Master.designer.cs">
       <DependentUpon>MasterPage.Master</DependentUpon>
     </Compile>
+    <Compile Include="Models\Fund.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\ReturnModel.cs" />
+    <Compile Include="Models\ReturnModelLegacy.cs" />
     <Compile Include="PersonService.svc.cs">
       <DependentUpon>PersonService.svc</DependentUpon>
     </Compile>

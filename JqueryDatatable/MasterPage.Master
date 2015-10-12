@@ -9,16 +9,12 @@
      <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.11.3/themes/start/jquery-ui.css" />
      <link rel="stylesheet" type="text/css" href="media/css/dataTables.jqueryui.css" />
      <link rel="stylesheet" type="text/css" href="Custom.css" />
-<%--     <link rel="stylesheet" type="text/css" href="extensions/Buttons/css/buttons.jqueryui.css" />
-     <link rel="stylesheet" type="text/css" href="extensions/Select/css/select.jqueryui.css" />--%>
+
     <script type="text/javascript" src="media/js/jquery.js"></script>
-    <script type="text/javascript" src="media/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="media/js/jquery.dataTablesLegacy.js"></script>
     <script type="text/javascript" src="media/js/dataTables.jqueryui.js"></script>
     <script type="text/javascript" src="media/js/addRows.js"></script>
-<%--    <script type="text/javascript" src="extensions/Buttons/js/dataTables.buttons.min.js"></script>
-    <script type="text/javascript" src="extensions/Buttons/js/buttons.jqueryui.js"></script>--%>
 
-    
 
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>

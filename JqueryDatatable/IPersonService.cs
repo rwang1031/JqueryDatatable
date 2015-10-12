@@ -16,6 +16,10 @@ namespace JqueryDatatable
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         ReturnModel GetPersons();
+
+        [OperationContract]
+        [WebGet(ResponseFormat = WebMessageFormat.Json)]
+        ReturnModelLegacy GetFundsLegacy();
       
     }
 }

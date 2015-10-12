@@ -26,19 +26,19 @@
              
              InitiatePersonTable1();
 
+            
              InitiatePersonTable2();
 
              $('#table_person tbody').on('click', 'input[type="checkbox"]', function (e) {
+                
+                 var row = this.closest('tr');
+                 var data = table.fnGetData(row);
 
-                 var $row = $(this).closest('tr');
-                 var data = table.fnGetData($row);
-
-                 var rowid = data.PersonID;
+                 var rowid = data[0];
                  var index = $.inArray(rowid, row_selected);
                  if (this.checked && index == -1) {
                      row_selected.push(rowid);
-                     letmesee(table.fnGetData($row));
-                     row_selected_data.push(table.fnGetData($row));
+                     row_selected_data.push(data);
                      
                  } else if (!this.checked && index != -1)
                  {
@@ -49,41 +49,59 @@
                  saveSelectedRowsToSessionStorage()
 
                  if (this.checked) {
-                     $row.addClass('selected');
+                     $(row).addClass('selected');
                  } else {
-                     $row.removeClass('selected');
+                     $(row).removeClass('selected');
                  }
-
                  e.stopPropogation();
-
-               
              });//
 
              $('#table_person').on('click', 'tbody td', function (e) {
                  $(this).parent().find('input[type="checkbox"]').trigger('click');
              });//
 
+
              $('#addToListBtn').on('click', function (e) {
                  e.preventDefault();
+                  
+                 var existingData = [];
 
-                              
-                 var existingData = table2.fnGetData();
+                 existingData = table2.fnGetData();
+
+                 var existingInstrumentIDs = [];
+
+                
+                 for (i = 0; i < existingData.length; i++)
+                 {
+                     existingInstrumentIDs.push(existingData[i][0]);
+                 }
+           
                  var difference = [];
+
 
                   //push only what the table2 doesn't have.           
                   $.grep(row_selected_data, function (element) {
 
-                     if ($.inArray(element, existingData) == -1)
-                     {
-                          difference.push(element);
+                      if ($.inArray(element[0], existingInstrumentIDs) == -1)
+                     {                         
+                         var clone = [];
+
+                         for (i = 0; i < element.length; i++)
+                         {
+                             clone.push(element[i]);
+
+                         }
+                             clone.push("{remove}")
+
+                          difference.push(clone);
                      }
                  });
                  
                  if(difference.length!=0)
-                 table2.fnAddData(difference);
+                     table2.fnAddData(difference);
 
              });
-            
+          
          });
 
 
@@ -112,37 +130,22 @@
              this.Title = Title;
          }
 
-             function GetPersons()
-             {
-                 $.ajax({
-                     type: "GET",
-                     dataType: 'json',
-                     url: "PersonService.svc/GetPersons",
-                     contentType: "application/json; charset=utf-8",
-                     success: function(){},
-                     error: function (error) {
-                         alert(JSON.stringify(error));
-                     }
-                 });//ajax end;
-             }
 
              function InitiatePersonTable1() {
 
                  table = $('#table_person').dataTable({
                      "bRetrieve": true,
-                     "bPaginate": true,
-                     serverSide: true,
-                     ajax: 'PersonService.svc/GetPersons',
-                     columns: [{ 'data': 'PersonID', 'title': 'PersonIDs' }, { 'data': 'FirstName', 'title': 'FirstNames' }, { 'data': 'LastName', 'title': 'LastNames' }, { 'data': 'Title', 'title': 'PersonTitle' }],
-                     columnDefs: [{
-                         'targets': 0, 'searchable': false, 'orderTable': false, 'className': 'checkbox_column', 'render': function (data, type, full, meta) {
-                             return '<input type="checkbox">';
-                         }
-                     }],
-                     "rowCallback": function (row, data, dataIndex) {
+                     "bPaginate": true
+                     , "bServerSide": true
+                     , "sAjaxSource": 'PersonService.svc/GetFundsLegacy'
+                      , "aoColumnDefs": [{
+                          'aTargets': [0], 'bSearchable': false, 'mRender': function (data, type, full) {
+                              return '<input type="checkbox">';
+                          }
+                      }]
+                     , "fnRowCallback": function (row, data, dataIndex,displayIndexFull) {
 
-
-                         var rowId = data.PersonID;
+                         var rowId = data[0]
 
                          var index = $.inArray(rowId, row_selected);
 
@@ -151,13 +154,19 @@
                              $(row).addClass('selected');
                          }
 
-                     },
-                     "bAutoWidth": false,
-                     "iDisplayLength": 5,
-                     "sPaginationType": "full"
-                     //,"dom": '<"top"fr>t<"bottom"p><"clear">'
-                     , stateSave: true
+                     }
+                     , "bAutoWidth": false
+                     , "iDisplayLength": 10
+                     //, "sPaginationType": "full"
+                     //,"sDom": '<"top"fr>t<"bottom"p><"clear">'
+                     //, stateSave: true
+                     , 'aoColumns': [{ "sTitle": "InstrumentID", "sWidth": "20%" },
+                                     { "sTitle": "Fund Serve Code", "sWidth": "20%", "bSearchable": true },
+                                     { "sTitle": "Fund Name", "sWidth": "20%", "bSearchable": true },
+                                     { "sTitle": "Fund Type", "sWidth": "20%", "bSearchable": true }
+                     ]
                  });
+                     
              }
 
 
@@ -166,33 +175,42 @@
                     table2 =  $('#table_selected').dataTable({
                          "bRetrieve": true,
                          "bPaginate": true,
-                         serverSide: false,
-                         columns: [{ 'data': 'PersonID', 'title': 'PersonIDs' }, { 'data': 'FirstName', 'title': 'FirstNames' }, { 'data': 'LastName', 'title': 'LastNames' }, { 'data': 'Title', 'title': 'PersonTitle' }],
-                         columnDefs:[{'targets':3,'searchable':false,'orderTable':false,'className':'remove_column','render':function(data,type,full,meta){
-                             return '<a class = remove_button >Remove</a>';
+                         "bServerSide": false
+                         ,"aoColumnDefs":[{'aTargets':[4],'mRender':function(data,type,full){
+                             return '<a class="remove_button" href="" >Remove</a>';
                          }
-                         }],
-                         pageLength:10,
-                         "rowCallback": function (row, data, dataIndex) {
+                         }]
+                         , 'aoColumns': [{ "sTitle": "InstrumentID", "sWidth": "20%", "bSearchable": true, "bVisible": false },
+                                          { "sTitle": "Fund Serve Code", "sWidth": "20%", "bSearchable": true },
+                                          { "sTitle": "Fund Name",  "sWidth": "20%", "bSearchable": true },
+                                          { "sTitle": "Fund Type", "sWidth": "20%", "bVisible": true },
+                                          { "sTitle": "Remove", "sWidth": "20%", "bVisible": true }]
+                        
+                         , "fnRowCallback": function (row, data, dataIndex) {
 
-                         },
-                         "drawCallback":function(settings){
+                             $(row).on('click','a', function (e) {
+                                 e.preventDefault();
+                                 table2.fnDeleteRow(row);
+                                 e.stopPropogation();
+                             });
+
+                         }
+                         ,"fnDrawCallback":function(settings){
                             
                              var numcolumns = this.oApi._fnVisbleColumns(settings);
                              addRows(this, numcolumns, 10);
+                             
                          }
-                           ,
-                         "bAutoWidth": false,
-                         "iDisplayLength": 5,
-                         "sPaginationType": "full"
+                         ,"bAutoWidth": false
+                         ,"iDisplayLength": 10
                          //,"dom": '<"top"fr>t<"bottom"p><"clear">'
-                         ,stateSave:true
-                     });
+                    });
+
                  }
 
 
                 
-                function letmesee(object){
+                   function letmesee(object){
                     alert(JSON.stringify(object));
                  }
 
