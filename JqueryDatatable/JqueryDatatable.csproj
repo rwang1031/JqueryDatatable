@@ -416,8 +416,6 @@
     <Content Include="media\js\dataTables.bootstrap.min.js" />
     <Content Include="media\js\dataTables.foundation.js" />
     <Content Include="media\js\dataTables.foundation.min.js" />
-    <Content Include="media\js\dataTables.jqueryui.js" />
-    <Content Include="media\js\dataTables.jqueryui.min.js" />
     <Content Include="media\js\jquery-1.10.2.js" />
     <Content Include="media\js\jquery.dataTables.js" />
     <Content Include="media\js\jquery.dataTables.min.js" />

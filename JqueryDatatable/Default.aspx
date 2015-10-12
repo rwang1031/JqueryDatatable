@@ -29,6 +29,7 @@
             
              InitiatePersonTable2();
 
+              //select funds by clicking on the row
              $('#table_person tbody').on('click', 'input[type="checkbox"]', function (e) {
                 
                  var row = this.closest('tr');
@@ -56,11 +57,13 @@
                  e.stopPropogation();
              });//
 
+
              $('#table_person').on('click', 'tbody td', function (e) {
                  $(this).parent().find('input[type="checkbox"]').trigger('click');
              });//
 
 
+            // Add selected funds to table2.
              $('#addToListBtn').on('click', function (e) {
                  e.preventDefault();
                   
@@ -101,6 +104,18 @@
                      table2.fnAddData(difference);
 
              });
+
+             //clear selected from table1
+             $('#clearTableBtn').on('click', function (e) {
+                 e.preventDefault();
+
+             row_selected = [];
+             row_selected_data = [];
+             sessionStorage.setItem("row_selected", row_selected);
+
+             sessionStorage.setItem("row_selected_data", row_selected_data);
+             table.fnDraw();
+             });
           
          });
 
@@ -109,7 +124,6 @@
          {
              sessionStorage.setItem("row_selected", JSON.stringify(row_selected));
              sessionStorage.setItem("row_selected_data", JSON.stringify(row_selected_data));
-
          }
 
          function getSelectedRowsFromSessionStorage()
@@ -120,7 +134,6 @@
          function getSelectedRowsDataFromSessionStorage() {
              return JSON.parse(sessionStorage.getItem("row_selected_data"));
          }
-
 
 
          function Person(PersonID, FirstName, LastName, Title) {
@@ -155,16 +168,17 @@
                          }
 
                      }
+                     ,"bJQueryUI":false
                      , "bAutoWidth": false
                      , "iDisplayLength": 10
                      //, "sPaginationType": "full"
-                     //,"sDom": '<"top"fr>t<"bottom"p><"clear">'
+                     ,"sDom": '<"top"fr>t<"bottom"p><"clear">'
                      //, stateSave: true
                      , 'aoColumns': [{ "sTitle": "InstrumentID", "sWidth": "20%" },
                                      { "sTitle": "Fund Serve Code", "sWidth": "20%", "bSearchable": true },
                                      { "sTitle": "Fund Name", "sWidth": "20%", "bSearchable": true },
                                      { "sTitle": "Fund Type", "sWidth": "20%", "bSearchable": true }
-                     ]
+                     ],
                  });
                      
              }
@@ -202,8 +216,8 @@
                              
                          }
                          ,"bAutoWidth": false
-                         ,"iDisplayLength": 10
-                         //,"dom": '<"top"fr>t<"bottom"p><"clear">'
+                         , "iDisplayLength": 10
+                         ,"sDom": '<"top"fr>t<"bottom"p><"clear">'
                     });
 
                  }
@@ -220,13 +234,14 @@
  
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
+     <div id="content_wrapper">
      <table id="table_person">
      </table>
      <table id="table_selected">
      </table>
-
      <div id="table1_buttons_div">
-         <button id="addToListBtn">Add Perons To List</button>
+         <button id="addToListBtn">Add Perons To List</button>&nbsp;&nbsp; <button id="clearTableBtn">Clear</button>
      </div>
+      </div>
 
 </asp:Content>
