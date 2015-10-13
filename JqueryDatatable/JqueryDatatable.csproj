@@ -422,6 +422,7 @@
     <Content Include="media\js\jquery.dataTablesLegacy.js" />
     <Content Include="media\js\jquery.js" />
     <Content Include="PersonService.svc" />
+    <Content Include="SQLScript\getFunds.sql" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

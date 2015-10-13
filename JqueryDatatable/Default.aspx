@@ -172,7 +172,7 @@
                      , "bAutoWidth": false
                      , "iDisplayLength": 10
                      //, "sPaginationType": "full"
-                     ,"sDom": '<"top"fr>t<"bottom"p><"clear">'
+                     ,"sDom": '<"top"fr>t<"bottom"ip><"clear">'
                      //, stateSave: true
                      , 'aoColumns': [{ "sTitle": "InstrumentID", "sWidth": "20%" },
                                      { "sTitle": "Fund Serve Code", "sWidth": "20%", "bSearchable": true },
