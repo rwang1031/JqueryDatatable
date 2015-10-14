@@ -135,13 +135,15 @@ namespace JqueryDatatable
                         result.Add(fund.FundType);
                         results.Add(result);
                     }
-
+           
                     dataToReturn.iTotalRecords = iTotalRecords;
                     dataToReturn.iTotalDisplayRecords = iTotalDisplayRecords;
                     dataToReturn.sEcho = sEcho;
                     dataToReturn.aaData = results;
                 }
             }
+
+            System.Threading.Thread.Sleep(5000);
             return dataToReturn;
         }
 

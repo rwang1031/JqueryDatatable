@@ -23,8 +23,12 @@
                  row_selected_data = sessionValue2;
              }
 
+            
+             
              
              InitiatePersonTable1();
+
+             //$('#table_person_processing').insertBefore('#table_person_wrapper div.bottom');
 
             
              InitiatePersonTable2();
@@ -147,8 +151,9 @@
              function InitiatePersonTable1() {
 
                  table = $('#table_person').dataTable({
-                     "bRetrieve": true,
-                     "bPaginate": true
+                     "bRetrieve": true
+                     ,"bPaginate": true
+                     ,"bProcessing":true
                      , "bServerSide": true
                      , "sAjaxSource": 'PersonService.svc/GetFundsLegacy'
                       , "aoColumnDefs": [{
@@ -179,6 +184,23 @@
                                      { "sTitle": "Fund Name", "sWidth": "20%", "bSearchable": true },
                                      { "sTitle": "Fund Type", "sWidth": "20%", "bSearchable": true }
                      ],
+                     'fnHeaderCallback': function () {
+
+                     },
+                     'fnFooterCallback': function () { }
+
+                     , 'fnPreDrawCallback': function () {
+                        
+                         $('#table_person tbody').append('<tr  id="dummytr"><td colspan="4" id="dummytd"></td></tr>');
+                         $('#dummytr').css('height','600px');
+
+                         //$('#table_person_processing').insertBefore('#table_person_wrapper div.bottom');
+                     }, 'fnDrawCallback': function () {
+
+                         $('#dummytr').remove();
+
+                     }
+
                  });
                      
              }
